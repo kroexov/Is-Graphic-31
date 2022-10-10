@@ -41,9 +41,27 @@
                 <Setter Property="BorderBrush" Value="#FFDD4812" />
             </Style>
         </Grid.Styles>
-        
-        <ListBox Grid.ColumnSpan="3" Grid.RowSpan="2" MinWidth="400" HorizontalAlignment="Center" Items="{Binding Items}" SelectedItem="{Binding SelectedImage}">
+        <Border Width="400" Grid.ColumnSpan="3" Grid.RowSpan="2"
+                BorderThickness="2" 
+                BorderBrush="Black"
+                CornerRadius="3"
+                Padding="4">
+        <StackPanel >
+            
+            <TextBlock Width="200" HorizontalAlignment="Center" FontSize="24">Список Файлов</TextBlock>
+            <Border Width="400" Height="450" HorizontalAlignment="Center"
+                    Background="FloralWhite"
+                    BorderThickness="2" 
+                    BorderBrush="Black"
+                    CornerRadius="3"
+                    Padding="4">
+        <ListBox  Items="{Binding Items}" SelectedItem="{Binding SelectedImage}">
         </ListBox>
+                </Border>
+            
+        </StackPanel>
+        </Border>
+        
         <Popup Grid.Row="1" Grid.Column="1" IsOpen="{Binding IsErrorOccured}">
             <TextBlock Text="{Binding ErrorText}"/>
         </Popup>

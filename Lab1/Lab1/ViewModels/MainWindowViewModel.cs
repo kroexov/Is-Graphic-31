@@ -89,7 +89,7 @@ namespace Lab1.ViewModels
                 {
                     _items.Add(result.First());
                     Data = File.ReadAllText(result.First());
-                    _model.AfterOpenFileLogic(); // прописать всю логику
+                    _model.AfterOpenFileLogic(result.First()); // прописать всю логику
                     return;
                 }
                 OnErrorHappened("Вы уже выбирали этот файл!");
