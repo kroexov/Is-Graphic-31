@@ -3,10 +3,13 @@
         xmlns:vm="using:Lab1.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
         x:Class="Lab1.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="Lab1">
+        Title="Lab1"
+        Width="1200" Height="800"
+        TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent">
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>
@@ -26,13 +29,15 @@
         <Grid.Styles>
             
             <Style Selector="Button">
-                <Setter Property="Width" Value="280"></Setter>
-                <Setter Property="Height" Value="40"></Setter>
-                <Setter Property="FontSize" Value="20"></Setter>
+                <Setter Property="Width" Value="400"></Setter>
+                <Setter Property="Height" Value="60"></Setter>
+                <Setter Property="FontSize" Value="26"></Setter>
                 <Setter Property="Foreground" Value="#FFFFFFFF" />
                 <Setter Property="BorderThickness" Value="2" />
                 <Setter Property="Background" Value="#FFDD4812" />
                 <Setter Property="BorderBrush" Value="#FFFFFFFF" />
+                <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
             </Style>
             <Style Selector="Button /template/ ContentPresenter">
                 <Setter Property="CornerRadius" Value="10" />
@@ -41,15 +46,29 @@
                 <Setter Property="BorderBrush" Value="#FFDD4812" />
             </Style>
         </Grid.Styles>
-        <Border Width="400" Grid.ColumnSpan="3" Grid.RowSpan="2"
+        <ExperimentalAcrylicBorder Grid.RowSpan="2" Grid.ColumnSpan="3" Margin="0 0 0 -64" Height="600" Width="500" HorizontalAlignment="Center" VerticalAlignment="Bottom" IsHitTestVisible="False">
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial
+                    BackgroundSource="Digger"
+                    TintColor="Black"
+                    TintOpacity="1"
+                    MaterialOpacity="0.65" />
+            </ExperimentalAcrylicBorder.Material>
+        </ExperimentalAcrylicBorder>
+        <StackPanel Grid.ColumnSpan="3" Grid.RowSpan="2">
+            <TextBlock Margin="0 20 0 0" HorizontalAlignment="Center" FontSize="40">Лабораторная работа номер 1</TextBlock>
+        <TextBlock Margin="0 20 0 0" HorizontalAlignment="Center" FontSize="30">Приложение для представления изображений</TextBlock>
+        
+        <Border Margin="0 20 0 0" Height="600" Width="500"
                 BorderThickness="2" 
                 BorderBrush="Black"
                 CornerRadius="3"
                 Padding="4">
-        <StackPanel >
             
-            <TextBlock Width="200" HorizontalAlignment="Center" FontSize="24">Список Файлов</TextBlock>
-            <Border Width="400" Height="450" HorizontalAlignment="Center"
+            <StackPanel >
+            
+            <TextBlock Width="400" TextAlignment="Center" HorizontalAlignment="Center" FontSize="24">Список Файлов</TextBlock>
+            <Border Margin=" 20 20 20 20" HorizontalAlignment="Center"
                     Background="FloralWhite"
                     BorderThickness="2" 
                     BorderBrush="Black"
@@ -60,6 +79,7 @@
                 </Border>
         </StackPanel>
         </Border>
+        </StackPanel>
         
         <Popup Grid.Row="1" Grid.Column="1" IsOpen="{Binding IsErrorOccured}">
             <TextBlock Text="{Binding ErrorText}"/>
