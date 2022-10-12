@@ -15,8 +15,7 @@ namespace Lab1.Models
         private int _stride;
         
         // todo: думать куда сохранять путь к новому файлу, пока менять локально для себя
-        private const string Path = "C:\\Users\\dewor\\Documents\\GitHub\\cg22-project-31\\Lab1\\Lab1\\test.bmp";
-        
+        private string _path;
 
         public Bitmap CreateP5Bit8(FileHeaderInfo header, byte[] bytes)
         {
@@ -38,9 +37,7 @@ namespace Lab1.Models
                 _entries[i] = b;
             }
             im.Palette = _palette;
-            
-            im.Save(Path, ImageFormat.Bmp);
-            
+
             return im;
         }
 
@@ -51,19 +48,18 @@ namespace Lab1.Models
             _columns = header.Width;
             _rows = header.Height;
             _stride = _columns * 3;
+
             var bytePtr = Marshal.AllocHGlobal(bytes.Length);
             Marshal.Copy(bytes, 0, bytePtr, bytes.Length);
 
             Bitmap im = new Bitmap(_columns, _rows, _stride, 
                 _pixelFormat, 
                 Marshal.UnsafeAddrOfPinnedArrayElement(bytes, 0));
-            
-            im.Save(Path, ImageFormat.Bmp);
-            
+
             return im;
         }
 
-        public object CreateP5Bit16(FileHeaderInfo header, byte[] bytes)
+        public Bitmap CreateP5Bit16(FileHeaderInfo header, byte[] bytes)
         {
             _pixelFormat = PixelFormat.Format24bppRgb;
             
@@ -76,13 +72,11 @@ namespace Lab1.Models
             Bitmap im = new Bitmap(_columns, _rows, _stride, 
                 _pixelFormat, 
                 Marshal.UnsafeAddrOfPinnedArrayElement(bytes, 0));
-            
-            im.Save(Path, ImageFormat.Bmp);
-            
+
             return im;
         }
 
-        public object CreateP6Bit16(FileHeaderInfo header, byte[] bytes)
+        public Bitmap CreateP6Bit16(FileHeaderInfo header, byte[] bytes)
         {
             _pixelFormat = PixelFormat.Format24bppRgb;
             
@@ -95,9 +89,7 @@ namespace Lab1.Models
             Bitmap im = new Bitmap(_columns, _rows, _stride, 
                 _pixelFormat, 
                 Marshal.UnsafeAddrOfPinnedArrayElement(bytes, 0));
-            
-            im.Save(Path, ImageFormat.Bmp);
-            
+
             return im;
         }
     }

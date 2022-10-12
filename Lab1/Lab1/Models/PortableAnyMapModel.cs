@@ -2,9 +2,7 @@
 using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
-using Avalonia.Platform;
 using Lab1.Models;
-using PixelFormat = System.Drawing.Imaging.PixelFormat;
 
 namespace Lab1.Models;
 
@@ -61,33 +59,40 @@ public class PortableAnyMapModel
         ExtractImageBytes();
     }
 
-    public void AfterOpenFileLogic(string filePath)
+    public string AfterOpenFileLogic(string filePath)
     {
-        //ModelErrorHappened?.Invoke("кринж");
         BitmapCreate cr = new BitmapCreate();
+        Bitmap newImage = new Bitmap(3, 3);
+        string fileName = Path.GetFileName(filePath);
+        string pathSaveFile = AppDomain.CurrentDomain.BaseDirectory;
+        
         switch (_header.FileFormat)
         {
             case "P6" when _header.MaxColorLevel == 255:
             {
-                var newImage = cr.CreateP6Bit8(_header, _bytesOfImage);
+                newImage = cr.CreateP6Bit8(_header, _bytesOfImage);
                 break;
             }
             case "P6" when _header.MaxColorLevel == 65535:
             {
-                var newImage = cr.CreateP6Bit16(_header, _bytesOfImage);
+                newImage = cr.CreateP6Bit16(_header, _bytesOfImage);
                 break;
             }
             case "P5" when _header.MaxColorLevel == 255:
             {
-                var newImage = cr.CreateP5Bit8(_header, _bytesOfImage);
+                newImage = cr.CreateP5Bit8(_header, _bytesOfImage);
                 break;
             }
             case "P5" when _header.MaxColorLevel == 65535:
             {
-                var newImage = cr.CreateP5Bit16(_header, _bytesOfImage);
+                newImage = cr.CreateP5Bit16(_header, _bytesOfImage);
                 break;
             }
         }
+        
+        
+        newImage.Save(pathSaveFile + "\\" + fileName, ImageFormat.Bmp);
+        return pathSaveFile + "\\" + fileName;
     }
 
     public event Action<string>? ModelErrorHappened;
