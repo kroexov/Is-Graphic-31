@@ -58,7 +58,6 @@
         <ListBox  Items="{Binding Items}" SelectedItem="{Binding SelectedImage}">
         </ListBox>
                 </Border>
-            
         </StackPanel>
         </Border>
         

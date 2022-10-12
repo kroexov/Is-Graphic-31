@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using Avalonia.Controls;
 using Lab1.Models;
+using Lab1.Views;
 using ReactiveUI;
 
 namespace Lab1.ViewModels
@@ -89,7 +90,6 @@ namespace Lab1.ViewModels
                 {
                     _items.Add(result.First());
                     Data = File.ReadAllText(result.First());
-                    _model.AfterOpenFileLogic(result.First()); // прописать всю логику
                     return;
                 }
                 OnErrorHappened("Вы уже выбирали этот файл!");
@@ -116,13 +116,17 @@ namespace Lab1.ViewModels
                 _items.Remove(_selectedImage);
                 _selectedImage = String.Empty;
                 RaisePropertyChanged(nameof(IsImageSelected));
-                //RaisePropertyChanged(nameof(Items));
             }
         }
 
         public void OpenFile()
         {
-            
+            _model.AfterOpenFileLogic(_selectedImage); // прописать всю логику
+            ImageDisplayWindow imageDisplayWindow = new ImageDisplayWindow()
+            {
+                DataContext = new ImageDisplayViewModel(_selectedImage)
+            };
+            imageDisplayWindow.Show();
         }
 
         public event Action<string> OnErrorHappened;
