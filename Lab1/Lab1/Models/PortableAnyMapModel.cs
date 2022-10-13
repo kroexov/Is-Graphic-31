@@ -64,7 +64,10 @@ public class PortableAnyMapModel
         BitmapCreate cr = new BitmapCreate();
         Bitmap newImage = new Bitmap(3, 3);
         string fileName = Path.GetFileName(filePath);
+        fileName = fileName.Substring(0, fileName.Length - 3) + "bmp";
         string pathSaveFile = AppDomain.CurrentDomain.BaseDirectory;
+        pathSaveFile = pathSaveFile.Substring(0, pathSaveFile.Length - 17);
+        string fullFileName = pathSaveFile + "\\imgFiles\\" + fileName;
         
         switch (_header.FileFormat)
         {
@@ -91,8 +94,8 @@ public class PortableAnyMapModel
         }
         
         
-        newImage.Save(pathSaveFile + "\\" + fileName, ImageFormat.Bmp);
-        return pathSaveFile + "\\" + fileName;
+        newImage.Save(fullFileName, ImageFormat.Bmp);
+        return fullFileName;
     }
 
     public event Action<string>? ModelErrorHappened;
