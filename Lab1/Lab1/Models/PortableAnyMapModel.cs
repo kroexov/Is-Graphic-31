@@ -55,7 +55,15 @@ public class PortableAnyMapModel
 
         _bytes = File.ReadAllBytes(filePath);
         string headerInfo = ExtractHeaderInfo();
-        _header = new FileHeaderInfo(headerInfo);
+        try
+        {
+            _header = new FileHeaderInfo(headerInfo);
+        }
+        catch (Exception e)
+        {
+            throw;
+        }
+        
         ExtractImageBytes();
     }
 

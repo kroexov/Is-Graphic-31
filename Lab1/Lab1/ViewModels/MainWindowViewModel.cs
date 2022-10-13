@@ -68,7 +68,7 @@ namespace Lab1.ViewModels
         public MainWindowViewModel(PortableAnyMapModel model)
         {
             _model = model;
-            model.ModelErrorHappened += OnErrorHappened;
+            model.ModelErrorHappened += (s => OnErrorHappened(s));
         }
 
         public ObservableCollection<string> Items
@@ -134,16 +134,31 @@ namespace Lab1.ViewModels
 
         public void OpenFile()
         {
-            _model.ReadFile(_selectedImage);
-            string _pathFile = _model.AfterOpenFileLogic(_selectedImage); // прописать всю логику
-            
-            // передать ссылку на созданный .bmp
-            ImageDisplayWindow imageDisplayWindow = new ImageDisplayWindow()
+            bool isok = true;
+            try
             {
-                //todo: поменять на нормальный путь
-                DataContext = new ImageDisplayViewModel(_pathFile) //вместо _selectedImage эту ссылку
-            };
-            imageDisplayWindow.Show();
+                _model.ReadFile(_selectedImage);
+            }
+            catch (Exception e)
+            {
+                isok = false;
+                DeleteFile();
+                OnErrorHappened(e.Message);
+            }
+
+            if (isok)
+            {
+                string _pathFile = _model.AfterOpenFileLogic(_selectedImage); // прописать всю логику
+                // передать ссылку на созданный .bmp
+                ImageDisplayWindow imageDisplayWindow = new ImageDisplayWindow()
+                {
+                    //todo: поменять на нормальный путь
+                    DataContext = new ImageDisplayViewModel(_pathFile) //вместо _selectedImage эту ссылку
+                };
+                imageDisplayWindow.Show();
+            }
+
+            
         }
 
         public event Action<string> OnErrorHappened;
