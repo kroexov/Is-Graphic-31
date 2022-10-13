@@ -24,6 +24,8 @@ namespace Lab1.ViewModels
         
         private string _errorText = "Неизвестная ошибка";
 
+        private bool _rgbMode = true;
+
         public string SelectedImage
         {
             get => _selectedImage;
@@ -32,6 +34,15 @@ namespace Lab1.ViewModels
                 this.RaiseAndSetIfChanged(ref _selectedImage, value);
                 RaisePropertyChanged(nameof(IsImageSelected));
             }
+        }
+
+        public bool RgbMode
+        {
+            get => _rgbMode;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _rgbMode, value);
+            } 
         }
 
         public bool IsErrorOccured
