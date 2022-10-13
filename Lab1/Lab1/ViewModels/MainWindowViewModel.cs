@@ -148,12 +148,10 @@ namespace Lab1.ViewModels
 
             if (isok)
             {
-                string _pathFile = _model.AfterOpenFileLogic(_selectedImage); // прописать всю логику
-                // передать ссылку на созданный .bmp
+                string _pathFile = _model.AfterOpenFileLogic(_selectedImage);
                 ImageDisplayWindow imageDisplayWindow = new ImageDisplayWindow()
                 {
-                    //todo: поменять на нормальный путь
-                    DataContext = new ImageDisplayViewModel(_pathFile) //вместо _selectedImage эту ссылку
+                    DataContext = new ImageDisplayViewModel(_pathFile)
                 };
                 imageDisplayWindow.Show();
             }

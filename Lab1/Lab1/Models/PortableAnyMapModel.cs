@@ -57,16 +57,13 @@ public class PortableAnyMapModel
 
         _bytes = File.ReadAllBytes(filePath);
         string headerInfo = ExtractHeaderInfo();
-        try
-        {
-            _header = new FileHeaderInfo(headerInfo);
-        }
-        catch (Exception e)
-        {
-            throw;
-        }
-        
+        _header = new FileHeaderInfo(headerInfo);
         ExtractImageBytes();
+
+        if (_header.Width * _header.Height * _header.PixelSize > _bytesOfImage.Length)
+        {
+            throw new Exception("Damaged file");
+        }
     }
 
     public string AfterOpenFileLogic(string filePath)
@@ -78,21 +75,24 @@ public class PortableAnyMapModel
         string pathSaveFile = AppDomain.CurrentDomain.BaseDirectory;
         pathSaveFile = pathSaveFile.Substring(0, pathSaveFile.Length - 17);
         string fullFileName = pathSaveFile + "\\imgFiles\\" + fileName;
-        
-        if (!ColorType)
-        {
-            ChangeToBGR();
-        }
-        
+
         switch (_header.FileFormat)
         {
             case "P6" when _header.MaxColorLevel == 255:
             {
+                if (!ColorType)
+                {
+                    ChangeToBGR();
+                }
                 newImage = cr.CreateP6Bit8(_header, _bytesOfImage);
                 break;
             }
             case "P6" when _header.MaxColorLevel == 65535:
             {
+                if (!ColorType)
+                {
+                    ChangeToBGR();
+                }
                 newImage = cr.CreateP6Bit16(_header, _bytesOfImage);
                 break;
             }
@@ -107,8 +107,7 @@ public class PortableAnyMapModel
                 break;
             }
         }
-        
-        
+
         newImage.Save(fullFileName, ImageFormat.Bmp);
         return fullFileName;
     }
