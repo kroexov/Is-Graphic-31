@@ -4,10 +4,10 @@ namespace Lab1.Models;
 
 public class FileHeaderInfo
 {
-    private string _fileFormat { get; }
-    private int _width { get; }
-    private int _height { get; }
-    private int _maxColorLevel { get; }
+    public string FileFormat { get; }
+    public int Width { get; }
+    public int Height { get; }
+    public int MaxColorLevel { get; }
 
     public FileHeaderInfo(string header)
     {
@@ -17,9 +17,9 @@ public class FileHeaderInfo
             throw new Exception("Damaged file: header doesn't match required format");
         }
 
-        _fileFormat = headerItems[0];
-        _width = Convert.ToInt32(headerItems[1]);
-        _height = Convert.ToInt32(headerItems[2]);
-        _maxColorLevel = Convert.ToInt32(headerItems[3]);
+        FileFormat = headerItems[0];
+        Width = Convert.ToInt32(headerItems[1]);
+        Height = Convert.ToInt32(headerItems[2]);
+        MaxColorLevel = Convert.ToInt32(headerItems[3]);
     }
 }

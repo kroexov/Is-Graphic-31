@@ -123,12 +123,14 @@ namespace Lab1.ViewModels
 
         public void OpenFile()
         {
-            _model.AfterOpenFileLogic(_selectedImage); // прописать всю логику
+            _model.ReadFile(_selectedImage);
+            string _pathFile = _model.AfterOpenFileLogic(_selectedImage); // прописать всю логику
             
             // передать ссылку на созданный .bmp
             ImageDisplayWindow imageDisplayWindow = new ImageDisplayWindow()
             {
-                DataContext = new ImageDisplayViewModel(_selectedImage) //вместо _selectedImage эту ссылку
+                //todo: поменять на нормальный путь
+                DataContext = new ImageDisplayViewModel(_pathFile) //вместо _selectedImage эту ссылку
             };
             imageDisplayWindow.Show();
         }
