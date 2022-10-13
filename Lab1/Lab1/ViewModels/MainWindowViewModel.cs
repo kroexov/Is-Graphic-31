@@ -80,9 +80,10 @@ namespace Lab1.ViewModels
         {
             var ofd = new OpenFileDialog();
             string[]? result = null;
+            ofd.Filters.Add(new FileDialogFilter() {Name = "Другой файл", Extensions = {"*"}});
             ofd.Filters.Add(new FileDialogFilter() {Name = "Файлы P6", Extensions = {"ppm"}});
             ofd.Filters.Add(new FileDialogFilter() {Name = "Файлы P5", Extensions = {"pgm"}});
-            ofd.Filters.Add(new FileDialogFilter() {Name = "Другой файл", Extensions = {"*"}});
+            
             result = await ofd.ShowAsync(new Window());
             if (result != null)
             {
@@ -99,9 +100,10 @@ namespace Lab1.ViewModels
         public async void SaveFile()
         {
             var ofd = new SaveFileDialog();
+            ofd.Filters.Add(new FileDialogFilter() {Name = "Другой файл", Extensions = {"*"}});
             ofd.Filters.Add(new FileDialogFilter() {Name = "Файлы P6", Extensions = {"ppm"}});
             ofd.Filters.Add(new FileDialogFilter() {Name = "Файлы P5", Extensions = {"pgm"}});
-            ofd.Filters.Add(new FileDialogFilter() {Name = "Другой файл", Extensions = {"*"}});
+            
             var result = await ofd.ShowAsync(new Window());
             if (result != null)
             {
