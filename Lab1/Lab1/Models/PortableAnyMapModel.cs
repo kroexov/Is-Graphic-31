@@ -8,9 +8,10 @@ namespace Lab1.Models;
 
 public class PortableAnyMapModel
 {
+    public bool ColorType = true;
     private byte[] _bytes;
     private byte[] _bytesOfImage;
-    private int _index = 0;
+    private int _index;
     private FileHeaderInfo _header;
     
     private String ExtractHeaderInfo()
@@ -18,6 +19,7 @@ public class PortableAnyMapModel
         String header = "";
         int lineBreakCounter = 0;
         const int codeOfLineBreakChar = 10;
+        _index = 0;
 
         while (lineBreakCounter != 3)
         {
@@ -69,6 +71,11 @@ public class PortableAnyMapModel
         pathSaveFile = pathSaveFile.Substring(0, pathSaveFile.Length - 17);
         string fullFileName = pathSaveFile + "\\imgFiles\\" + fileName;
         
+        if (!ColorType)
+        {
+            ChangeToBGR();
+        }
+        
         switch (_header.FileFormat)
         {
             case "P6" when _header.MaxColorLevel == 255:
@@ -96,6 +103,22 @@ public class PortableAnyMapModel
         
         newImage.Save(fullFileName, ImageFormat.Bmp);
         return fullFileName;
+    }
+
+    static void Swap<T>(ref T lhs, ref T rhs)
+    {
+        T temp;
+        temp = lhs;
+        lhs = rhs;
+        rhs = temp;
+    }
+
+    public void ChangeToBGR()
+    {
+        for (int i = 0; i < _bytesOfImage.Length - 2; i += 3)
+        {
+            Swap(ref _bytesOfImage[i], ref _bytesOfImage[i + 2]);
+        }
     }
 
     public event Action<string>? ModelErrorHappened;
