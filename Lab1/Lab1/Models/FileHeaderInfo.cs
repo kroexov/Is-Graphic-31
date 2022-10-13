@@ -12,7 +12,7 @@ public class FileHeaderInfo
     public FileHeaderInfo(string header)
     {
         string[] headerItems = header.Trim().Split();
-        if (headerItems.Length == 4)
+        if (headerItems.Length != 4)
         {
             throw new Exception("Damaged file: header doesn't match required format");
         }
