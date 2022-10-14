@@ -42,6 +42,7 @@ namespace Lab1.ViewModels
             set
             {
                 this.RaiseAndSetIfChanged(ref _rgbMode, value);
+                _model.ColorType = _rgbMode;
             } 
         }
 

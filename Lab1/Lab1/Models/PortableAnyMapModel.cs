@@ -41,10 +41,10 @@ public class PortableAnyMapModel
 
     private void ExtractImageBytes()
     {
-        _bytesOfImage = new byte[_bytes.Length - _index];
-        for (var i = _index; i < _bytes.Length; i++)
+        _bytesOfImage = new byte[_header.Width * _header.Height * _header.PixelSize];
+        for (var i = 0; i < _header.Width * _header.Height * _header.PixelSize; i++)
         {
-            _bytesOfImage[i - _index] = _bytes[i];
+            _bytesOfImage[i] = _bytes[i + _index];
         }
     }
 

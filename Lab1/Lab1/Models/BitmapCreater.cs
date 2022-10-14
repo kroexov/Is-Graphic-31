@@ -51,10 +51,11 @@ namespace Lab1.Models
 
             var bytePtr = Marshal.AllocHGlobal(bytes.Length);
             Marshal.Copy(bytes, 0, bytePtr, bytes.Length);
+            var scan0 = Marshal.UnsafeAddrOfPinnedArrayElement(bytes, 0);
 
             Bitmap im = new Bitmap(_columns, _rows, _stride, 
                 _pixelFormat, 
-                Marshal.UnsafeAddrOfPinnedArrayElement(bytes, 0));
+                scan0);
 
             return im;
         }
