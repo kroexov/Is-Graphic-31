@@ -56,8 +56,6 @@
             </ExperimentalAcrylicBorder.Material>
         </ExperimentalAcrylicBorder>
         
-        <TextBox Grid.Row="0" Grid.Column="2" FontSize="30" Text="ЦветПР"/>
-        
         <StackPanel Grid.ColumnSpan="3">
             <TextBlock Foreground="Orange" Margin="0 10 0 0" HorizontalAlignment="Center" FontSize="40">Лабораторная работа номер 1</TextBlock>
         <TextBlock Foreground="Orange" Margin="0 15 0 0" HorizontalAlignment="Center" FontSize="30">Приложение для представления изображений</TextBlock>
