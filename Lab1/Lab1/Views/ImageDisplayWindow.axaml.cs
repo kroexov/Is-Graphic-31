@@ -13,6 +13,7 @@ public partial class ImageDisplayWindow : Window
         InitializeComponent();
     }
 
+    //add comment
     private void InitializeComponent()
     {
         AvaloniaXamlLoader.Load(this);
