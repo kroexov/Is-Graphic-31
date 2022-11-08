@@ -7,16 +7,42 @@ using System.Runtime.InteropServices;
 
 namespace Lab1.Models
 {
+    /// <summary>
+    /// класс который создает нам bitmap
+    /// </summary>
     public class BitmapCreate
     {
+        /// <summary>
+        /// хранит в себе формат пикселя чб/цв
+        /// </summary>
         private PixelFormat _pixelFormat;
+        
+        /// <summary>
+        /// ширина картинки
+        /// </summary>
         private int _columns;
+        
+        /// <summary>
+        /// высота картинки
+        /// </summary>
         private int _rows;
+        
+        /// <summary>
+        /// хз
+        /// </summary>
         private int _stride;
         
-        // todo: думать куда сохранять путь к новому файлу, пока менять локально для себя
+        /// <summary>
+        /// путь до картинки
+        /// </summary>
         private string _path;
 
+        /// <summary>
+        /// создает файл формата p5, 8 бит на цвет 
+        /// </summary>
+        /// <param name="header">распарсинный header картинки.</param>
+        /// <param name="bytes">информации о пикселях в картинке.</param>
+        /// <returns>созданный bitmap на основе файла</returns>
         public Bitmap CreateP5Bit8(FileHeaderInfo header, byte[] bytes)
         {
             _pixelFormat = PixelFormat.Format8bppIndexed;
@@ -41,6 +67,12 @@ namespace Lab1.Models
             return im;
         }
 
+        /// <summary>
+        /// создает файл формата p6, 8 бит на цвет 
+        /// </summary>
+        /// <param name="header">распарсинный header картинки.</param>
+        /// <param name="bytes">информации о пикселях в картинке.</param>
+        /// <returns>созданный bitmap на основе файла</returns>
         public Bitmap CreateP6Bit8(FileHeaderInfo header, byte[] bytes)
         {
             _pixelFormat = PixelFormat.Format24bppRgb;
@@ -56,40 +88,6 @@ namespace Lab1.Models
             Bitmap im = new Bitmap(_columns, _rows, _stride, 
                 _pixelFormat, 
                 scan0);
-
-            return im;
-        }
-
-        public Bitmap CreateP5Bit16(FileHeaderInfo header, byte[] bytes)
-        {
-            _pixelFormat = PixelFormat.Format24bppRgb;
-            
-            _columns = header.Width;
-            _rows = header.Height;
-            _stride = _columns * 2;
-            var bytePtr = Marshal.AllocHGlobal(bytes.Length);
-            Marshal.Copy(bytes, 0, bytePtr, bytes.Length);
-
-            Bitmap im = new Bitmap(_columns, _rows, _stride, 
-                _pixelFormat, 
-                Marshal.UnsafeAddrOfPinnedArrayElement(bytes, 0));
-
-            return im;
-        }
-
-        public Bitmap CreateP6Bit16(FileHeaderInfo header, byte[] bytes)
-        {
-            _pixelFormat = PixelFormat.Format24bppRgb;
-            
-            _columns = header.Width;
-            _rows = header.Height;
-            _stride = _columns * 6;
-            var bytePtr = Marshal.AllocHGlobal(bytes.Length);
-            Marshal.Copy(bytes, 0, bytePtr, bytes.Length);
-
-            Bitmap im = new Bitmap(_columns, _rows, _stride, 
-                _pixelFormat, 
-                Marshal.UnsafeAddrOfPinnedArrayElement(bytes, 0));
 
             return im;
         }

@@ -6,14 +6,34 @@ using Lab1.Models;
 
 namespace Lab1.Models;
 
+
+/// <summary>
+/// сервис через который происходит обжение между Models и ViewModels
+/// </summary>
 public class PortableAnyMapModel
 {
     public bool ColorType = true;
+    /// <summary>
+    /// битовый вид информации из файла
+    /// </summary>
     private byte[] _bytes;
+    /// <summary>
+    /// битовый вид информации о ппикселях картинки
+    /// </summary>
     private byte[] _bytesOfImage;
+    /// <summary>
+    /// значение с которого начинается информация о пикселях
+    /// </summary>
     private int _index;
+    /// <summary>
+    /// распарсенный header
+    /// </summary>
     private FileHeaderInfo _header;
     
+    /// <summary>
+    /// находит header из файла
+    /// </summary>
+    /// <returns>header файла</returns>
     private String ExtractHeaderInfo()
     {
         String header = "";
@@ -39,6 +59,9 @@ public class PortableAnyMapModel
         return header;
     }
 
+    /// <summary>
+    /// находит информацию о пикселях
+    /// </summary>
     private void ExtractImageBytes()
     {
         _bytesOfImage = new byte[_header.Width * _header.Height * _header.PixelSize];
@@ -47,7 +70,11 @@ public class PortableAnyMapModel
             _bytesOfImage[i] = _bytes[i + _index];
         }
     }
-
+    
+    /// <summary>
+    /// находит файл и читает его
+    /// </summary>
+    /// <param name="filePath">путь до файла который читаем</param>
     public void ReadFile(String filePath)
     {
         if (!File.Exists(filePath))
@@ -65,7 +92,13 @@ public class PortableAnyMapModel
             throw new Exception("Damaged file");
         }
     }
-
+    
+    
+    /// <summary>
+    /// создает bitmap и файл bpm формата
+    /// </summary>
+    /// <param name="filePath">путь до файла который читаем</param>
+    /// <returns>путь до созданного bpm file</returns>
     public string AfterOpenFileLogic(string filePath)
     {
         BitmapCreate cr = new BitmapCreate();
@@ -87,23 +120,9 @@ public class PortableAnyMapModel
                 newImage = cr.CreateP6Bit8(_header, _bytesOfImage);
                 break;
             }
-            case "P6" when _header.MaxColorLevel == 65535:
-            {
-                if (!ColorType)
-                {
-                    ChangeToBGR();
-                }
-                newImage = cr.CreateP6Bit16(_header, _bytesOfImage);
-                break;
-            }
             case "P5" when _header.MaxColorLevel == 255:
             {
                 newImage = cr.CreateP5Bit8(_header, _bytesOfImage);
-                break;
-            }
-            case "P5" when _header.MaxColorLevel == 65535:
-            {
-                newImage = cr.CreateP5Bit16(_header, _bytesOfImage);
                 break;
             }
         }
@@ -111,7 +130,7 @@ public class PortableAnyMapModel
         newImage.Save(fullFileName, ImageFormat.Bmp);
         return fullFileName;
     }
-
+    
     static void Swap<T>(ref T lhs, ref T rhs)
     {
         T temp;
@@ -120,6 +139,7 @@ public class PortableAnyMapModel
         rhs = temp;
     }
 
+    //todo: поменять название функции 
     public void ChangeToBGR()
     {
         for (int i = 0; i < _bytesOfImage.Length - 2; i += 3)

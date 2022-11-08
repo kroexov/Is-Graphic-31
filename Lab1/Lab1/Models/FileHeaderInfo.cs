@@ -3,15 +3,37 @@ using System.Net;
 
 namespace Lab1.Models;
 
+
+/// <summary>
+/// класс который парсит header
+/// </summary>
 public class FileHeaderInfo
 {
+    /// <summary>
+    /// формат картинки p5/p6
+    /// </summary>
     public string FileFormat { get; }
+    /// <summary>
+    /// ширина
+    /// </summary>
     public int Width { get; }
+    /// <summary>
+    /// высота
+    /// </summary>
     public int Height { get; }
+    /// <summary>
+    /// максимальное значения цвета
+    /// </summary>
     public int MaxColorLevel { get; }
-
+    /// <summary>
+    /// размер пикселя
+    /// </summary>
     public int PixelSize { get; }
 
+    /// <summary>
+    /// формат картинки p5/p6
+    /// </summary>
+    /// <param name="header">header картинки, который нужно парсить.</param>
     public FileHeaderInfo(string header)
     {
         string[] headerItems = header.Trim().Split();

@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Lab1</name>
+    </assembly>
+    <members>
+        <member name="T:Lab1.Models.BitmapCreate">
+            <summary>
+            класс который создает нам bitmap
+            </summary>
+        </member>
+        <member name="F:Lab1.Models.BitmapCreate._pixelFormat">
+            <summary>
+            хранит в себе формат пикселя чб/цв
+            </summary>
+        </member>
+        <member name="F:Lab1.Models.BitmapCreate._columns">
+            <summary>
+            ширина картинки
+            </summary>
+        </member>
+        <member name="F:Lab1.Models.BitmapCreate._rows">
+            <summary>
+            высота картинки
+            </summary>
+        </member>
+        <member name="F:Lab1.Models.BitmapCreate._stride">
+            <summary>
+            хз
+            </summary>
+        </member>
+        <member name="F:Lab1.Models.BitmapCreate._path">
+            <summary>
+            путь до картинки
+            </summary>
+        </member>
+        <member name="M:Lab1.Models.BitmapCreate.CreateP5Bit8(Lab1.Models.FileHeaderInfo,System.Byte[])">
+            <summary>
+            создает файл формата p5, 8 бит на цвет 
+            </summary>
+            <param name="header">распарсинный header картинки.</param>
+            <param name="bytes">информации о пикселях в картинке.</param>
+            <returns>созданный bitmap на основе файла</returns>
+        </member>
+        <member name="M:Lab1.Models.BitmapCreate.CreateP6Bit8(Lab1.Models.FileHeaderInfo,System.Byte[])">
+            <summary>
+            создает файл формата p6, 8 бит на цвет 
+            </summary>
+            <param name="header">распарсинный header картинки.</param>
+            <param name="bytes">информации о пикселях в картинке.</param>
+            <returns>созданный bitmap на основе файла</returns>
+        </member>
+        <member name="T:Lab1.Models.FileHeaderInfo">
+            <summary>
+            класс который парсит header
+            </summary>
+        </member>
+        <member name="P:Lab1.Models.FileHeaderInfo.FileFormat">
+            <summary>
+            формат картинки p5/p6
+            </summary>
+        </member>
+        <member name="P:Lab1.Models.FileHeaderInfo.Width">
+            <summary>
+            ширина
+            </summary>
+        </member>
+        <member name="P:Lab1.Models.FileHeaderInfo.Height">
+            <summary>
+            высота
+            </summary>
+        </member>
+        <member name="P:Lab1.Models.FileHeaderInfo.MaxColorLevel">
+            <summary>
+            максимальное значения цвета
+            </summary>
+        </member>
+        <member name="P:Lab1.Models.FileHeaderInfo.PixelSize">
+            <summary>
+            размер пикселя
+            </summary>
+        </member>
+        <member name="M:Lab1.Models.FileHeaderInfo.#ctor(System.String)">
+            <summary>
+            формат картинки p5/p6
+            </summary>
+            <param name="header">header картинки, который нужно парсить.</param>
+        </member>
+        <member name="T:Lab1.Models.PortableAnyMapModel">
+            <summary>
+            сервис через который происходит обжение между Models и ViewModels
+            </summary>
+        </member>
+        <member name="F:Lab1.Models.PortableAnyMapModel._bytes">
+            <summary>
+            битовый вид информации из файла
+            </summary>
+        </member>
+        <member name="F:Lab1.Models.PortableAnyMapModel._bytesOfImage">
+            <summary>
+            битовый вид информации о ппикселях картинки
+            </summary>
+        </member>
+        <member name="F:Lab1.Models.PortableAnyMapModel._index">
+            <summary>
+            значение с которого начинается информация о пикселях
+            </summary>
+        </member>
+        <member name="F:Lab1.Models.PortableAnyMapModel._header">
+            <summary>
+            распарсенный header
+            </summary>
+        </member>
+        <member name="M:Lab1.Models.PortableAnyMapModel.ExtractHeaderInfo">
+            <summary>
+            находит header из файла
+            </summary>
+            <returns>header файла</returns>
+        </member>
+        <member name="M:Lab1.Models.PortableAnyMapModel.ExtractImageBytes">
+            <summary>
+            находит информацию о пикселях
+            </summary>
+        </member>
+        <member name="M:Lab1.Models.PortableAnyMapModel.ReadFile(System.String)">
+            <summary>
+            находит файл и читает его
+            </summary>
+            <param name="filePath">путь до файла который читаем</param>
+        </member>
+        <member name="M:Lab1.Models.PortableAnyMapModel.AfterOpenFileLogic(System.String)">
+            <summary>
+            создает bitmap и файл bpm формата
+            </summary>
+            <param name="filePath">путь до файла который читаем</param>
+            <returns>путь до созданного bpm file</returns>
+        </member>
+        <member name="M:Lab1.Views.ErrorWindow.InitializeComponent(System.Boolean,System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+            <param name="attachDevTools">Should the dev tools be attached.</param>
+        </member>
+        <member name="M:Lab1.Views.ImageDisplayWindow.InitializeComponent(System.Boolean,System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+            <param name="attachDevTools">Should the dev tools be attached.</param>
+        </member>
+        <member name="M:Lab1.Views.MainWindow.InitializeComponent(System.Boolean,System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+            <param name="attachDevTools">Should the dev tools be attached.</param>
+        </member>
+    </members>
+</doc>
